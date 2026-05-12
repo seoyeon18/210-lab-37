@@ -56,11 +56,11 @@ int main()
             break;
         }
 
-        cout << "Hash index:" << it->first;
+        cout << "Hash index:" << it->first<< " -> ";
 
         for (list<string>::iterator listIt = it->second.begin(); listIt != it->second.end(); listIt++)
         {
-            cout << *listIt;
+            cout << *listIt<< " ";
         }
 
         cout << endl;
