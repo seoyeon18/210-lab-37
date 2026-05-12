@@ -31,6 +31,36 @@ void print_menu()
     cout << "Enter your choice: ";
 }
 
+void print_first_100_entries(map<int, list<string>> hash_table){
+    cout << endl;
+    cout << "First 100 hash table entries:" << endl;
+    cout << "---------------------" << endl;
+
+    int count = 0;
+
+    for (map<int, list<string>>::iterator it = hash_table.begin(); it != hash_table.end(); it++)
+    {
+        if (count >= 100)
+        {
+            break;
+        }
+
+        cout << "Entry " << count + 1<< endl;
+        cout << "Hash index: " << it->first << endl;
+        cout << "Number of codes: " << it->second.size() << endl;
+        cout << "Codes: ";
+
+        for (list<string>::iterator listIt = it->second.begin(); listIt != it->second.end(); listIt++)
+        {
+            cout << *listIt;
+        }
+
+        cout << endl;
+        cout << "------------------------" << endl;
+
+        count++;
+    }
+}
 
 int main()
 {
@@ -70,7 +100,7 @@ while (choice != 6)
     print_menu();
     cin >> choice;
 
-    if (choice == 1){cout << "Print first 100 entries selected" << endl;
+    if (choice == 1){print_first_100_entries(hash_table);
     }
     else if (choice == 2){
         cout << "Search selected" << endl;
