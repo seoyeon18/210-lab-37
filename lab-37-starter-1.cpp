@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 int sum_ascii(string text)
@@ -16,11 +17,25 @@ int sum_ascii(string text)
 
 int main()
 {
-    string test = "ABC";
+    ifstream inputFile("lab-37-data.txt");
 
-    cout << "Test string: " << test << endl;
-    cout << "ASCII sum: " << sum_ascii(test) << endl;
+    if (!inputFile)
+    {
+        cout << "Error: Could not open lab-37-data.txt" << endl;
+        return 1;
+    }
 
+    string code;
+    long long grand_total = 0;
+
+    while (inputFile >> code)
+    {
+        grand_total += sum_ascii(code);
+    }
+
+    inputFile.close();
+
+    cout << "Grand total: " << grand_total << endl;
     return 0;
 }
 
