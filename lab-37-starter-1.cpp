@@ -78,6 +78,25 @@ bool search_key(map<int, list<string>> hash_table, string key)
     return false;
 }
 
+void add_key(map<int, list<string>>& hash_table)
+{
+    string key;
+
+    cout << "Enter the key: ";
+    cin >> key;
+
+    if (search_key(hash_table, key))
+    {
+        return;
+    }
+
+    int hash_index = gen_hash_index(key);
+    hash_table[hash_index].push_back(key);
+
+    cout << "Key add successfully" << endl;
+    cout << "Hash index: " << hash_index << endl;
+}
+
 int main()
 {
     ifstream inputFile("lab-37-data-3.txt");
@@ -132,8 +151,9 @@ while (choice != 6)
                 cout << "Key not found" << endl;
             }
     }
+    
     else if (choice == 3){
-        cout << "Add selected" << endl;
+        add_key(hash_table);
     }
     else if (choice == 4){
         cout << "Remove selected" << endl;
