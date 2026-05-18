@@ -133,6 +133,45 @@ void remove_key(map<int, list<string>>& hash_table)
     cout << "Key not found." << endl;
 }
 
+void modify_key(map<int, list<string>>& hash_table)
+{
+    string old_key;
+    string new_key;
+
+    cout << "Enter the key to modify: ";
+    cin >> old_key;
+
+    if (!search_key(hash_table, old_key))
+    {
+        cout << "Original key not found." << endl;
+    }
+
+    cout << "Enter the new key: ";
+    cin >> new_key;
+
+    if (search_key(hash_table, new_key))
+    {
+        cout << "New key already exists in hash table" << endl;
+        return;
+    }
+
+    int old_hash_index = gen_hash_index(old_key);
+
+    map<int, list<string>>::iterator it = hash_table.find(old_hash_index);
+    for (list<string>::iterator listIt = it->second.begin(); listIt != it->second.end(); listIt++)
+    {
+        if (*listIt == old_key)
+        {
+            it->second.erase(listIt);
+
+            if (it->second.empty())
+            {
+                hash_table.erase(it);
+            }
+            break;
+        }
+    }
+}
 
 int main()
 {
@@ -196,7 +235,7 @@ while (choice != 6)
         remove_key(hash_table);
     }
     else if (choice == 5){
-        cout << "Modify selected" << endl;
+        modify_key(hash_table);
     }
     else if (choice == 6){
         cout << "Exiting program" <<endl;
