@@ -62,6 +62,22 @@ void print_first_100_entries(map<int, list<string>> hash_table){
     }
 }
 
+bool search_key(map<int, list<string>> hash_table, string key)
+{
+    int hash_index = gen_hash_index(key);
+    map<int, list<string>>::iterator it = hash_table.find(hash_index);
+
+    for(list<string>::iterator listIt = it->second.begin(); listIt != it->second.end(); listIt++)
+    {
+        if (*listIt == key)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 int main()
 {
     ifstream inputFile("lab-37-data-3.txt");
@@ -85,13 +101,10 @@ int main()
     }
 
     inputFile.close();
-
+    cout << "loaded successfully." << endl;
     cout << "Grand total: " << grand_total << endl;
 
-    cout << endl;
-    cout << "First 100 hash table entries:" << endl;
 
-    int count = 0;
 
     int choice = 0;
 
@@ -100,10 +113,24 @@ while (choice != 6)
     print_menu();
     cin >> choice;
 
-    if (choice == 1){print_first_100_entries(hash_table);
+    if (choice == 1){
+        print_first_100_entries(hash_table);
     }
     else if (choice == 2){
-        cout << "Search selected" << endl;
+        string key;
+
+            cout << "Enter the key to search for: ";
+            cin >> key;
+
+            if (search_key(hash_table, key))
+            {
+                cout << "Key found" << endl;
+                cout << "Hash index: " << gen_hash_index(key) << endl;
+            }
+            else
+            {
+                cout << "Key not found" << endl;
+            }
     }
     else if (choice == 3){
         cout << "Add selected" << endl;
