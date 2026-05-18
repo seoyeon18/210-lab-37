@@ -97,6 +97,43 @@ void add_key(map<int, list<string>>& hash_table)
     cout << "Hash index: " << hash_index << endl;
 }
 
+void remove_key(map<int, list<string>>& hash_table)
+{
+    string key;
+
+    cout << "Enter the key to remove: ";
+    cin >> key;
+
+    int hash_index = gen_hash_index(key);
+
+    map<int, list<string>>::iterator it = hash_table.find(hash_index);
+
+    if (it == hash_table.end())
+    {
+        cout << "Key not found." << endl;
+        return;
+    }
+
+    for (list<string>::iterator listIt = it->second.begin(); listIt != it->second.end(); listIt++)
+    {
+        if (*listIt == key)
+        {
+            it->second.erase(listIt);
+
+            if (it->second.empty())
+            {
+                hash_table.erase(it);
+            }
+
+            cout << "Key removed successfully." << endl;
+            return;
+        }
+    }
+
+    cout << "Key not found." << endl;
+}
+
+
 int main()
 {
     ifstream inputFile("lab-37-data-3.txt");
@@ -156,7 +193,7 @@ while (choice != 6)
         add_key(hash_table);
     }
     else if (choice == 4){
-        cout << "Remove selected" << endl;
+        remove_key(hash_table);
     }
     else if (choice == 5){
         cout << "Modify selected" << endl;
